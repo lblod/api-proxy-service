@@ -1,0 +1,15 @@
+pipeline:
+  lint:
+    image: node:20-alpine
+    commands:
+      - apk --no-cache add git openssh
+      - npm ci
+      - npm run lint:js
+  build:
+    image: plugins/docker
+    settings:
+      repo: ${CI_REPO}
+      dry_run: true
+when:
+  event:
+    - pull_request
