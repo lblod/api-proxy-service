@@ -33,7 +33,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 
 const isSessionAuthorized = async (
   sessionId: string,
-  requiredRoles: string[]
+  requiredRoles: string[],
 ) => {
   // If no roles are required, we can skip the query
   if (requiredRoles.length === 0) return true;
@@ -82,5 +82,5 @@ app.use(
         });
       },
     ],
-  })
+  }),
 );
