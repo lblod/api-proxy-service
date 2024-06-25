@@ -8,7 +8,15 @@ import { cleanEnv, EnvError, makeValidator, str, url } from "envalid";
 
 const requiredRolesValidator = makeValidator((x) => {
   try {
-    return x.trim().split(",");
+    const trimmed = x.trim();
+
+    // Splitting empty string will result in [""], an array with one empty string
+    // So have to check for empty string here first
+    if (!trimmed) {
+      return [];
+    }
+
+    return trimmed.split(",");
   } catch (e) {
     throw new EnvError(`Invalid roles input: "${x}"`);
   }
