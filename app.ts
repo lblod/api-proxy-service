@@ -27,6 +27,7 @@ const env = cleanEnv(process.env, {
   API_URL: url(),
   API_KEY_HEADER: str({ default: "x-api-key" }),
   REQUIRED_ROLES: requiredRolesValidator({ default: [] }),
+  ALLOWED_ORIGIN: str({ default: "" }),
 });
 
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -78,6 +79,9 @@ app.use(
             if (!(await isSessionAuthorized(muSessionId, requiredRoles))) {
               return res.status(403).send();
             }
+          }
+          if (env.ALLOWED_ORIGIN) {
+            res.setHeader("access-control-allow-origin", env.ALLOWED_ORIGIN);
           }
         });
       },
