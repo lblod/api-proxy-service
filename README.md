@@ -41,4 +41,9 @@ end
     restart: always
 ```
 
+## Setup without a `mu-semtech` stack
+
+It is possible to use this service without a `mu-identifier` or `mu-dispatcher`, but this is not recommended for production use.
+You will need to publish port `80` somehow, either in the docker-compose config for the service or by using a reverse proxy in a docker network.
+If your frontend is not running on the same domain as `api-proxy-service`, then you will need to set the `ALLOWED_ORIGIN` environment variable to match that of your frontend, or `*`.
 
