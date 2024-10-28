@@ -12,6 +12,7 @@ The following environment variables can be set to configure the service:
 - `API_KEY`: The API key to be used for the proxied calls.
 - `API_KEY_HEADER`: The header to which the API key is added. Default is `X-Api-Key`.
 - `REQUIRED_ROLES`: A comma-separated list of roles that are required to access the service. Default is empty. If set, the service will check if the session has any of the roles assigned before proxying the call. If not set or empty, no check is performed.
+- `ALLOWED_ORIGIN`: A static override for the access-control-allow-origin header to be set for every response. Defaults to not setting this header.
 
 ## Setup in a `mu-semtech` Docker stack
 
