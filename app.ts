@@ -5,6 +5,7 @@ import { querySudo as query } from "@lblod/mu-auth-sudo";
 import { Request, Response } from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { cleanEnv, EnvError, makeValidator, str, url } from "envalid";
+import plugins from "./config/plugins";
 
 const requiredRolesValidator = makeValidator((x) => {
   try {
@@ -85,6 +86,7 @@ app.use(
           }
         });
       },
+      ...plugins,
     ],
   }),
 );
