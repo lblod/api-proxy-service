@@ -1,4 +1,4 @@
-pipeline:
+steps:
   lint:
     image: node:20-alpine
     commands:
@@ -11,5 +11,4 @@ pipeline:
       repo: ${CI_REPO}
       dry_run: true
 when:
-  event:
-    - pull_request
+  - event: pull_request
