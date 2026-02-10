@@ -24,7 +24,7 @@ const requiredRolesValidator = makeValidator((x) => {
 });
 
 const env = cleanEnv(process.env, {
-  API_KEY: str(),
+  API_KEY: str({ default: undefined }),
   API_URL: url(),
   API_KEY_HEADER: str({ default: "x-api-key" }),
   REQUIRED_ROLES: requiredRolesValidator({ default: [] }),
@@ -60,9 +60,11 @@ app.use(
   createProxyMiddleware<Request, Response>({
     target: env.API_URL,
     changeOrigin: true,
-    headers: {
-      [env.API_KEY_HEADER]: env.API_KEY,
-    },
+    headers: env.API_KEY
+      ? {
+          [env.API_KEY_HEADER]: env.API_KEY,
+        }
+      : {},
     pathRewrite: (_path, req) =>
       req.originalUrl ?? `${req.baseUrl || ""}${req.url}`,
     plugins: [
